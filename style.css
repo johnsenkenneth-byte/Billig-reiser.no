@@ -8674,3 +8674,717 @@ html body .search-card.travel-search{
     font-size:11px;
   }
 }
+
+/* BR v217: make the AI travel search fit tablet and small screens */
+html,
+body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+#travelSearch,
+#travelSearch *{
+  box-sizing:border-box;
+}
+
+@media(max-width:1280px){
+  html body .hero{
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "copy"
+      "live"
+      "summer"!important;
+    width:100%!important;
+    max-width:100vw!important;
+    padding:24px clamp(12px,3vw,28px) 34px!important;
+    gap:20px!important;
+    overflow:hidden!important;
+  }
+
+  html body .hero>.hero-copy,
+  html body .hero-copy{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+
+  html body .front-logo-full{
+    width:min(520px,100%)!important;
+    max-width:100%!important;
+  }
+
+  html body .front-logo-full img{
+    max-width:100%!important;
+    height:auto!important;
+  }
+
+  html body form#travelSearch,
+  html body #travelSearch.neon-flight-deck,
+  html body .search-card.neon-flight-deck,
+  html body .search-card.travel-search{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:18px 0 0!important;
+    padding:clamp(14px,2vw,22px)!important;
+    overflow:visible!important;
+  }
+
+  html body form#travelSearch .flight-deck-head{
+    flex-wrap:wrap!important;
+    align-items:center!important;
+    gap:10px 16px!important;
+  }
+
+  html body form#travelSearch .smart-search-main{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  html body form#travelSearch .smart-service-grid{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:10px!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:12px 0 16px!important;
+    padding:0!important;
+    overflow:visible!important;
+  }
+
+  html body form#travelSearch .smart-service-grid button{
+    flex:initial!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:86px!important;
+    padding:10px 6px!important;
+    transform:none!important;
+  }
+
+  html body form#travelSearch .smart-service-grid span{
+    max-width:100%!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  html body form#travelSearch .search-mode-title{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  html body form#travelSearch .search-fields.fields{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+    width:100%!important;
+    max-width:100%!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    overflow:visible!important;
+  }
+
+  html body form#travelSearch .search-fields label{
+    min-width:0!important;
+    width:100%!important;
+    border:1px solid rgba(112,158,208,.24)!important;
+    border-radius:16px!important;
+  }
+
+  html body form#travelSearch .search-actions.single-action,
+  html body form#travelSearch .hero-ctas.search-actions.single-action{
+    position:static!important;
+    inset:auto!important;
+    width:100%!important;
+    margin:14px 0 0!important;
+    padding:0!important;
+  }
+
+  html body form#travelSearch .search-launch,
+  html body form#travelSearch #searchSubmitButton{
+    width:100%!important;
+    min-width:0!important;
+  }
+}
+
+@media(max-width:900px){
+  html body form#travelSearch .flight-deck-head{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+  }
+
+  html body form#travelSearch .flight-deck-head em{
+    font-size:13px!important;
+    line-height:1.35!important;
+  }
+
+  html body form#travelSearch .smart-search-main{
+    grid-template-columns:30px minmax(0,1fr)!important;
+    gap:8px!important;
+    padding:10px!important;
+  }
+
+  html body form#travelSearch .smart-search-main button{
+    grid-column:1/-1!important;
+    width:100%!important;
+    height:46px!important;
+    margin-top:6px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+
+  html body form#travelSearch .search-mode-title{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:4px!important;
+  }
+
+  html body form#travelSearch .search-fields.fields,
+  html body form#travelSearch[data-mode="flight"][data-flight-trip="multicity"] .search-fields.fields{
+    grid-template-columns:1fr!important;
+  }
+
+  html body form#travelSearch .traveler-menu{
+    left:0!important;
+    right:auto!important;
+    width:min(360px,100%)!important;
+    min-width:0!important;
+    max-width:100%!important;
+  }
+}
+
+@media(max-width:640px){
+  html body .hero{
+    padding:18px 12px 28px!important;
+  }
+
+  html body .front-logo-full{
+    width:min(100%,420px)!important;
+  }
+
+  html body form#travelSearch,
+  html body #travelSearch.neon-flight-deck{
+    max-width:calc(100vw - 24px)!important;
+    padding:12px!important;
+    border-radius:22px!important;
+  }
+
+  html body form#travelSearch .flight-deck-head em{
+    display:none!important;
+  }
+
+  html body form#travelSearch .deck-kicker{
+    max-width:100%!important;
+    padding:8px 13px!important;
+    font-size:11px!important;
+    line-height:1.2!important;
+    white-space:normal!important;
+  }
+
+  html body form#travelSearch .smart-search-main input{
+    height:38px!important;
+    font-size:15px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid button{
+    min-height:78px!important;
+    padding:8px 4px!important;
+    border-radius:15px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid .service-icon{
+    width:38px!important;
+    height:38px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid .service-icon svg{
+    width:23px!important;
+    height:23px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid span{
+    font-size:11px!important;
+    line-height:1.05!important;
+  }
+
+  html body form#travelSearch .flight-trip-toggle{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    overflow:visible!important;
+  }
+
+  html body form#travelSearch .flight-trip-toggle button{
+    min-width:0!important;
+    padding:0 4px!important;
+    font-size:15px!important;
+    text-align:center!important;
+  }
+
+  html body form#travelSearch .search-fields label{
+    min-height:66px!important;
+    padding:12px 12px 11px 52px!important;
+  }
+
+  html body form#travelSearch .search-fields input,
+  html body form#travelSearch .traveler-toggle,
+  html body form#travelSearch .date-range-toggle{
+    min-width:0!important;
+    max-width:100%!important;
+    font-size:14px!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+
+  html body form#travelSearch .date-range-toggle{
+    gap:5px!important;
+  }
+}
+
+@media(max-width:430px){
+  html body form#travelSearch .smart-service-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  html body form#travelSearch .search-mode-title b{
+    font-size:21px!important;
+  }
+
+  html body form#travelSearch .flight-trip-toggle button{
+    font-size:14px!important;
+  }
+}
+
+@media(max-width:820px){
+  html body .hotel-topper.is-partner-strip{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    max-width:100vw!important;
+    margin:0!important;
+    padding:9px 10px 10px!important;
+    overflow:hidden!important;
+    position:relative!important;
+    z-index:34!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-rail{
+    display:flex!important;
+    grid-template-columns:none!important;
+    grid-auto-rows:auto!important;
+    gap:10px!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:0 0 3px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-rail::-webkit-scrollbar{
+    display:none!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-card,
+  html body .hotel-topper.is-partner-strip .hotel-topper-card.is-partner-image{
+    display:block!important;
+    flex:0 0 min(72vw,270px)!important;
+    width:auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    aspect-ratio:230 / 146!important;
+    border-radius:10px!important;
+    scroll-snap-align:start!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-card.is-sommerhus-bat{
+    flex-basis:min(88vw,360px)!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-card img{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-card.is-logo-partner img{
+    object-fit:contain!important;
+    padding:clamp(16px,5vw,28px)!important;
+  }
+}
+
+/* BR v218: desktop/tablet hero should feel like the live deal collage mockup */
+@media(min-width:981px){
+  html body .hero{
+    display:grid!important;
+    grid-template-columns:minmax(340px,.48fr) minmax(0,.82fr)!important;
+    grid-template-areas:
+      "copy live"
+      "summer summer"!important;
+    align-items:center!important;
+    gap:clamp(18px,3vw,46px)!important;
+    min-height:clamp(720px,63vw,900px)!important;
+    width:100%!important;
+    max-width:100vw!important;
+    padding:clamp(28px,4vw,54px) clamp(18px,4vw,56px) clamp(40px,5vw,64px)!important;
+    overflow:hidden!important;
+  }
+
+  html body .hero>.hero-copy,
+  html body .hero-copy{
+    grid-area:copy!important;
+    align-self:center!important;
+    width:100%!important;
+    max-width:min(520px,42vw)!important;
+    min-width:0!important;
+    margin:0!important;
+    z-index:5!important;
+  }
+
+  html body .front-logo-full{
+    width:min(500px,40vw)!important;
+    max-width:100%!important;
+    margin:0 0 18px!important;
+  }
+
+  html body .front-logo-full img{
+    width:100%!important;
+    height:auto!important;
+  }
+
+  html body form#travelSearch,
+  html body #travelSearch.neon-flight-deck,
+  html body .search-card.neon-flight-deck,
+  html body .search-card.travel-search{
+    width:100%!important;
+    max-width:min(520px,42vw)!important;
+    margin:0!important;
+    padding:18px!important;
+    border-radius:30px!important;
+    background:
+      radial-gradient(circle at 92% 16%,rgba(255,37,200,.18),transparent 36%),
+      linear-gradient(180deg,rgba(8,16,36,.78),rgba(5,10,24,.70))!important;
+    overflow:visible!important;
+  }
+
+  html body form#travelSearch .flight-deck-head{
+    align-items:center!important;
+    flex-wrap:wrap!important;
+    gap:10px 14px!important;
+    margin-bottom:12px!important;
+  }
+
+  html body form#travelSearch .flight-deck-head em{
+    font-size:13px!important;
+    line-height:1.35!important;
+  }
+
+  html body form#travelSearch .smart-search-main{
+    grid-template-columns:26px minmax(0,1fr) minmax(76px,92px)!important;
+    gap:8px!important;
+    padding:8px 9px 8px 12px!important;
+    border-radius:18px!important;
+  }
+
+  html body form#travelSearch .smart-search-main input{
+    height:38px!important;
+    font-size:15px!important;
+  }
+
+  html body form#travelSearch .smart-search-main button{
+    height:42px!important;
+    padding:0 12px!important;
+    border-radius:14px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:9px!important;
+    margin:12px 0 14px!important;
+    padding:0!important;
+    overflow:visible!important;
+  }
+
+  html body form#travelSearch .smart-service-grid button{
+    width:100%!important;
+    min-width:0!important;
+    min-height:76px!important;
+    padding:8px 5px!important;
+    border-radius:18px!important;
+    transform:none!important;
+  }
+
+  html body form#travelSearch .smart-service-grid .service-icon{
+    width:42px!important;
+    height:42px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid .service-icon svg{
+    width:24px!important;
+    height:24px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid span{
+    font-size:11px!important;
+    line-height:1.05!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  html body form#travelSearch .search-mode-title{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:4px!important;
+    margin:12px 0!important;
+    padding:10px 12px!important;
+  }
+
+  html body form#travelSearch .search-mode-title b{
+    font-size:22px!important;
+  }
+
+  html body form#travelSearch .search-mode-title span{
+    font-size:13px!important;
+  }
+
+  html body form#travelSearch .flight-trip-toggle button{
+    flex:1 1 0!important;
+    min-width:0!important;
+    padding:0 6px!important;
+    font-size:15px!important;
+    text-align:center!important;
+  }
+
+  html body form#travelSearch .search-fields.fields,
+  html body form#travelSearch[data-mode="flight"][data-flight-trip="multicity"] .search-fields.fields{
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+  }
+
+  html body form#travelSearch .search-fields label{
+    min-height:64px!important;
+    padding:10px 12px 9px 50px!important;
+  }
+
+  html body form#travelSearch .search-fields input,
+  html body form#travelSearch .traveler-toggle,
+  html body form#travelSearch .date-range-toggle{
+    font-size:14px!important;
+    min-height:26px!important;
+  }
+
+  html body .hero>.hero-live-showcase,
+  html body .hero-live-showcase{
+    grid-area:live!important;
+    justify-self:stretch!important;
+    align-self:center!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:clamp(610px,56vw,760px)!important;
+    height:clamp(610px,56vw,760px)!important;
+    margin:0!important;
+    isolation:isolate!important;
+    overflow:visible!important;
+  }
+
+  html body .hero-live-showcase:before{
+    inset:4% 0 7% 4%!important;
+    border-radius:42px!important;
+    background:
+      radial-gradient(circle at 22% 20%,rgba(255,37,200,.22),transparent 28%),
+      radial-gradient(circle at 70% 20%,rgba(33,215,255,.20),transparent 30%),
+      linear-gradient(145deg,rgba(8,18,38,.58),rgba(3,8,21,.30))!important;
+  }
+
+  html body .hero-live-showcase:after{
+    left:6%!important;
+    right:6%!important;
+    top:46%!important;
+    opacity:.86!important;
+  }
+
+  html body .hero-live-main{
+    left:5%!important;
+    top:10%!important;
+    width:66%!important;
+    height:64%!important;
+    border-radius:36px!important;
+    transform:rotate(-.4deg)!important;
+    box-shadow:0 32px 100px rgba(0,0,0,.52),0 0 58px rgba(255,37,200,.18),0 0 48px rgba(33,215,255,.12)!important;
+  }
+
+  html body .hero-live-main-copy{
+    left:28px!important;
+    right:28px!important;
+    bottom:30px!important;
+    gap:8px!important;
+  }
+
+  html body .hero-live-main-copy strong{
+    max-width:94%!important;
+    font-size:clamp(42px,5.1vw,72px)!important;
+    line-height:.98!important;
+    letter-spacing:-.02em!important;
+  }
+
+  html body .hero-live-main-copy span{
+    max-width:88%!important;
+    font-size:clamp(16px,1.6vw,22px)!important;
+  }
+
+  html body .hero-live-card{
+    right:1%!important;
+    top:3%!important;
+    width:min(360px,43%)!important;
+    min-height:210px!important;
+    border-radius:28px!important;
+    padding:20px!important;
+    box-shadow:0 26px 76px rgba(0,0,0,.48),0 0 36px rgba(33,215,255,.16)!important;
+  }
+
+  html body .hero-live-card:nth-child(2){
+    right:13%!important;
+    top:35%!important;
+    width:min(330px,40%)!important;
+    min-height:205px!important;
+  }
+
+  html body .hero-live-card:nth-child(3){
+    left:37%!important;
+    right:auto!important;
+    top:60%!important;
+    width:min(345px,42%)!important;
+    min-height:190px!important;
+  }
+
+  html body .hero-live-card strong{
+    font-size:clamp(22px,2.2vw,34px)!important;
+  }
+
+  html body .hero-live-card small,
+  html body .hero-live-card span{
+    font-size:13px!important;
+  }
+
+  html body .hero-live-card em{
+    padding:9px 13px!important;
+    font-size:14px!important;
+  }
+
+  html body .hero-live-strip{
+    left:15%!important;
+    right:1%!important;
+    bottom:3%!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+
+  html body .hero-live-strip a{
+    min-height:84px!important;
+    border-radius:22px!important;
+    padding:16px 18px!important;
+  }
+
+  html body .hero-live-strip b{
+    font-size:16px!important;
+  }
+
+  html body .hero-live-signal{
+    right:1%!important;
+    bottom:17%!important;
+    min-height:46px!important;
+    padding:10px 16px!important;
+    font-size:14px!important;
+  }
+}
+
+@media(min-width:981px) and (max-width:1120px){
+  html body .hero{
+    grid-template-columns:minmax(320px,.42fr) minmax(0,.78fr)!important;
+    gap:18px!important;
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+
+  html body form#travelSearch{
+    padding:14px!important;
+  }
+
+  html body form#travelSearch .smart-service-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  html body .hero-live-main-copy strong{
+    font-size:clamp(38px,5.5vw,58px)!important;
+  }
+}
+
+/* BR v219: lift the live deal collage into the empty desktop hero space */
+@media(min-width:981px){
+  html body .hero{
+    align-items:start!important;
+    grid-template-rows:auto auto!important;
+    min-height:clamp(780px,64vw,920px)!important;
+  }
+
+  html body .hero>.hero-copy,
+  html body .hero-copy{
+    align-self:start!important;
+  }
+
+  html body .front-logo-full{
+    width:min(430px,34vw)!important;
+    margin-bottom:14px!important;
+  }
+
+  html body .hero>.hero-live-showcase,
+  html body .hero-live-showcase{
+    align-self:start!important;
+    min-height:clamp(640px,58vw,780px)!important;
+    height:clamp(640px,58vw,780px)!important;
+    transform:translateY(-6px)!important;
+  }
+
+  html body form#travelSearch .search-fields label{
+    min-height:58px!important;
+  }
+
+  html body form#travelSearch .field-icon{
+    width:34px!important;
+    height:34px!important;
+  }
+
+  html body form#travelSearch .deal-pulse-row{
+    margin-top:10px!important;
+  }
+}
+
+@media(min-width:1160px){
+  html body form#travelSearch .search-fields.fields,
+  html body form#travelSearch[data-mode="flight"][data-flight-trip="roundtrip"] .search-fields.fields,
+  html body form#travelSearch[data-mode="flight"][data-flight-trip="oneway"] .search-fields.fields{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  html body form#travelSearch .date-range-field,
+  html body form#travelSearch .traveler-field,
+  html body form#travelSearch .field-multi-city{
+    grid-column:1/-1!important;
+  }
+}
