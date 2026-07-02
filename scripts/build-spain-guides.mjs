@@ -1133,9 +1133,9 @@ function renderCityPage(city) {
   })}</script>
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="theme-color" content="#020913" />
-  <script defer src="/pwa-register.js?v=194"></script>
+  <script defer src="/pwa-register.js?v=221"></script>
   <link rel="stylesheet" href="/app-features.css" />
-  <script defer src="/app-features.js"></script>
+  <script defer src="/app-features.js?v=221"></script>
 </head>
 <body>
   <nav class="spain-nav">
@@ -1311,9 +1311,9 @@ function renderIndex() {
   <link rel="stylesheet" href="/spania/spania-city.css?v=${SPAIN_CSS_VERSION}" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="theme-color" content="#020913" />
-  <script defer src="/pwa-register.js?v=194"></script>
+  <script defer src="/pwa-register.js?v=221"></script>
   <link rel="stylesheet" href="/app-features.css" />
-  <script defer src="/app-features.js"></script>
+  <script defer src="/app-features.js?v=221"></script>
 </head>
 <body>
   <nav class="spain-nav">

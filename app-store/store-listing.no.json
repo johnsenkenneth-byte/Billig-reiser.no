@@ -1,0 +1,27 @@
+{
+  "appName": "Billig Reiser",
+  "subtitle": "Fly, hotell og reisetilbud",
+  "category": "Travel",
+  "ageRating": "4+",
+  "supportUrl": "https://billig-reiser.no/kontakt.html",
+  "marketingUrl": "https://billig-reiser.no/",
+  "privacyPolicyUrl": "https://billig-reiser.no/personvern.html",
+  "promotionalText": "Finn fly, hotell, pakkereiser, reiseguider, prisvarsler og personlig reiseradgivning i en rask norsk reiseapp.",
+  "description": "Billig Reiser samler reisesok, guider, restplasser, hotell, leiebil, aktiviteter og praktiske reisehacks pa ett sted. Lagre favoritter, sett opp prisvarsler, bruk AI-reiseradgiveren til a svare pa reisemal, tid og budsjett, og fa konkrete forslag for reisen. Bestilling og betaling skjer hos eksterne reiseleverandorer.",
+  "keywords": [
+    "reise",
+    "fly",
+    "hotell",
+    "restplass",
+    "charter",
+    "pakkereise",
+    "reiseguide",
+    "prisvarsel"
+  ],
+  "whatsNew": "Ny personlig AI-reiseradgiver med stegvis flyt for reisemal, tidspunkt, budsjett og konkrete forslag. Appklar versjon med favoritter, prisvarsler, push-varselklargjoring, offline-modus og splash screen.",
+  "reviewNotes": "Bestilling og betaling skjer hos eksterne partnere. Appen har ingen in-app purchases og krever ikke konto. E-post og push-subscription brukes kun nar brukeren frivillig setter opp reise- eller prisvarsler.",
+  "contact": {
+    "email": "post@billig-reiser.no",
+    "organizationNumber": "937 505 248"
+  }
+}

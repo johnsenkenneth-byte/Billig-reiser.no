@@ -16,6 +16,19 @@
       ]
     },
     {
+      "source": "/app-store/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
       "source": "/offline.html",
       "headers": [
         {

@@ -505,9 +505,9 @@ function pageHead({ title, description, canonical, image, jsonHeadline }) {
   <link rel="stylesheet" href="/spania/spania-city.css?v=${CSS_VERSION}" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="theme-color" content="#020913" />
-  <script defer src="/pwa-register.js?v=194"></script>
-  <link rel="stylesheet" href="/app-features.css?v=159" />
-  <script defer src="/app-features.js"></script>
+  <script defer src="/pwa-register.js?v=221"></script>
+  <link rel="stylesheet" href="/app-features.css?v=221" />
+  <script defer src="/app-features.js?v=221"></script>
   <style>
     .greece-hub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
     .greece-route-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}

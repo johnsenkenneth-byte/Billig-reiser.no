@@ -1,0 +1,14 @@
+{
+  "name": "billig-reiser-app",
+  "version": "2.2.2",
+  "private": true,
+  "type": "module",
+  "description": "Billig Reiser PWA and app-store-ready web bundle.",
+  "scripts": {
+    "serve": "python3 -m http.server 4173",
+    "check:js": "node --check app-features.js && node --check sw.js && node --check pwa-register.js"
+  },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}

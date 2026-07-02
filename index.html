@@ -27,10 +27,17 @@
 <meta name="apple-mobile-web-app-title" content="Billig Reiser">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#020913">
+<meta name="color-scheme" content="dark light">
+<meta name="format-detection" content="telephone=no">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<script defer src="/pwa-register.js?v=219"></script>
-<link rel="stylesheet" href="/app-features.css?v=159">
-<script defer src="/app-features.js"></script>
+<link rel="apple-touch-startup-image" href="/assets/splash/apple-splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="/assets/splash/apple-splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="/assets/splash/apple-splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="/assets/splash/apple-splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="/assets/splash/apple-splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<script defer src="/pwa-register.js?v=221"></script>
+<link rel="stylesheet" href="/app-features.css?v=221">
+<script defer src="/app-features.js?v=221"></script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
@@ -404,6 +411,7 @@
 <img alt="" aria-hidden="true" class="pixel" data-consent-src="https://www.lduhtrp.net/image-101724638-14078638" height="1" width="1"/>
 <img alt="" aria-hidden="true" class="pixel" data-consent-src="https://www.ftjcfx.com/image-101724638-13852710" height="1" width="1"/>
 <script defer="" src="affiliate-config.js?v=206"></script>
+<script defer="" src="ai-advisor.js?v=222"></script>
 <script defer="" src="app.js?v=213"></script>
 <script data-consent-src="https://www.anrdoezrs.net/am/101724638/include/allCj/generate/onLoad/exclude/5275619,6385999,5289022,7211102,6061620,4861279/impressions/page/am.js" type="text/plain"></script>
 <div aria-label="Informasjon om cookies" aria-live="polite" class="cookie-banner" id="cookieBanner" role="dialog">
@@ -419,35 +427,26 @@
 <a class="mobile-sticky-cta" data-open-search="flight" href="#travelSearch">Sjekk reisepriser</a>
 <!-- Billig-Reiser AI reisehjelper -->
 <div aria-live="polite" class="ai-travel-assistant" id="aiTravelAssistant">
-<button aria-label="Åpne AI reisehjelper" class="ai-chat-toggle" id="aiChatToggle" type="button">
-<span>AI</span> Reisehjelper
-    <em>Hva kan jeg hjelpe med?</em>
+<button aria-label="Åpne AI reiserådgiver" class="ai-chat-toggle" id="aiChatToggle" type="button">
+<span>AI</span> Reiserådgiver
+    <em>Finn riktig reise på 30 sek</em>
 </button>
-<section aria-label="AI reisehjelper" class="ai-chat-panel" hidden="" id="aiChatPanel">
+<section aria-label="AI reiserådgiver" class="ai-chat-panel ai-advisor-panel" hidden="" id="aiChatPanel">
 <div class="ai-chat-head">
 <div>
-<strong>AI reisehjelper</strong>
-<small>Finn fly, hotell og leiebil raskere</small>
+<strong>Personlig reiserådgiver</strong>
+<small>Svar på tre ting, så får du konkrete forslag</small>
 </div>
 <button aria-label="Lukk" id="aiChatClose" type="button">×</button>
 </div>
-<div class="ai-chat-messages" id="aiChatMessages">
-<div class="ai-msg bot">Hei! Hva kan jeg hjelpe deg med? Skriv for eksempel: <b>Fly Oslo til Bangkok 2 voksne 1 barn</b>, <b>hotell i Roma</b> eller <b>leiebil i Alicante</b>.</div>
+<div class="ai-advisor-recap" id="aiAdvisorRecap"></div>
+<div class="ai-advisor-stage" id="aiAdvisorStage">
+<div class="ai-advisor-step">
+<h3>Hvor vil du?</h3>
+<p>Velg et sted, eller skriv noe mer åpent.</p>
 </div>
-<div aria-label="Raske forslag" class="ai-chat-chips">
-<button data-ai-chip="Billig solferie i juli" type="button">Solferie</button>
-<button data-ai-chip="Fly Oslo til Bangkok 2 voksne 1 barn" type="button">Fly til Bangkok</button>
-<button data-ai-chip="Hotell i Roma" type="button">Hotell Roma</button>
-<button data-ai-chip="Leiebil i Alicante" type="button">Leiebil</button>
-<button data-ai-chip="Finn restplass til syden" type="button">Restplass</button>
-<button data-ai-chip="Finn pakkereise med fly og hotell" type="button">Pakkereise</button>
-<button data-ai-chip="Finn feriebolig" type="button">Feriebolig</button>
-<button data-ai-chip="Finn cruise" type="button">Cruise</button>
 </div>
-<form class="ai-chat-form" id="aiChatForm">
-<input autocomplete="off" id="aiChatInput" placeholder="Hva ser du etter?" type="text"/>
-<button type="submit">Send</button>
-</form>
+<button class="ai-advisor-reset" id="aiAdvisorReset" type="button">Start på nytt</button>
 </section>
 </div>
 </body>

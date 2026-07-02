@@ -1,14 +1,14 @@
 {
-  "name": "Billig Reiser",
+  "name": "Billig Reiser - fly, hotell og reisetilbud",
   "short_name": "Billig Reiser",
-  "description": "Finn fly, hotell, pakkereiser, leiebil og aktiviteter samlet på Billig-reiser.no.",
-  "id": "/",
-  "start_url": "/",
+  "description": "Sok fly, hotell, pakkereiser, leiebil, aktiviteter og prisvarsler samlet i Billig Reiser-appen.",
+  "id": "https://billig-reiser.no/",
+  "start_url": "/?utm_source=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": [
-    "window-controls-overlay",
     "standalone",
+    "fullscreen",
     "browser"
   ],
   "orientation": "portrait-primary",
@@ -16,11 +16,25 @@
   "theme_color": "#020913",
   "categories": [
     "travel",
-    "lifestyle"
+    "lifestyle",
+    "utilities"
   ],
   "lang": "no",
   "dir": "ltr",
+  "prefer_related_applications": false,
   "icons": [
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/assets/app-icon-192.png",
       "sizes": "192x192",
@@ -40,11 +54,28 @@
       "purpose": "maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/assets/splash/apple-splash-1170x2532.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Billig Reiser appstart"
+    },
+    {
+      "src": "/assets/splash/apple-splash-2048x2732.png",
+      "sizes": "2048x2732",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Billig Reiser pa nettbrett"
+    }
+  ],
   "shortcuts": [
     {
-      "name": "Søk reise",
-      "short_name": "Søk",
+      "name": "Sok reise",
+      "short_name": "Sok",
       "url": "/#travelSearch",
+      "description": "Apne reisesoket.",
       "icons": [
         {
           "src": "/assets/app-icon-192.png",
@@ -53,9 +84,22 @@
       ]
     },
     {
-      "name": "Reisehacks",
-      "short_name": "Hacks",
-      "url": "/reisehacks.html",
+      "name": "Prisvarsler",
+      "short_name": "Varsler",
+      "url": "/#reisevarsel",
+      "description": "Sett opp pris- og reisevarsler.",
+      "icons": [
+        {
+          "src": "/assets/app-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "AI reiseradgiver",
+      "short_name": "Radgiver",
+      "url": "/#aiTravelAssistant",
+      "description": "Fa stegvis hjelp til a finne riktig reise.",
       "icons": [
         {
           "src": "/assets/app-icon-192.png",
@@ -67,17 +111,7 @@
       "name": "Reisemagasin",
       "short_name": "Magasin",
       "url": "/reisemagasinet.html",
-      "icons": [
-        {
-          "src": "/assets/app-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Thailand guide",
-      "short_name": "Thailand",
-      "url": "/reise-thailand.html",
+      "description": "Les guider og reisetips.",
       "icons": [
         {
           "src": "/assets/app-icon-192.png",
@@ -85,5 +119,8 @@
         }
       ]
     }
-  ]
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }

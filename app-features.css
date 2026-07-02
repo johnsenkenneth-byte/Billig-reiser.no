@@ -14,3 +14,21 @@ html body :is(.hero-ctas a,.search-actions button,.search-launch,#searchSubmitBu
 html body :is(.activity-card a,.guide-card a,.city-card a,.experience-body a){display:inline-flex;align-items:center;justify-content:center;min-height:42px;margin-top:14px;padding:0 16px;border-radius:999px;font-weight:950;text-decoration:none}
 html body :is(.hero-ctas a,.search-actions button,.search-launch,#searchSubmitButton,.cta-row a,.route-bottom a,.guide-actions a,.guide-cta,.guide-cards-3 a,.btn,.mockup-cta,.trip-klook-search button,.klook-quick-links button,.package-inline-actions button,.package-inline-actions a,.summer-charter-copy>button,.summer-charter-links button,.live-deal-card button,.live-deals-head button,.front-hotel-head>button,.front-hotel-card button,.smart-search-main button,.engine-button,.family-card-button,.backpacking-button,.br-app-fab,.br-app-budget button,.br-app-install):hover{filter:brightness(1.05) saturate(1.05)}
 html body :is(#travelSearch #searchSubmitButton.search-launch,#travelSearch .search-launch,form#travelSearch button#searchSubmitButton.search-launch,.front-blog-cta a,.magazine-main-link,.hotel-search-box>a,.booking-buttons a,.premium-hotel-card .gold-cta,.gold-cta,.cookie-actions button){background:var(--br-action-gradient)!important;color:var(--br-action-ink)!important;border-color:transparent!important;box-shadow:var(--br-action-shadow)!important;text-shadow:none!important}
+
+/* BR v221: App Store readiness controls */
+.br-app-nav{grid-template-columns:repeat(5,1fr)}
+.br-app-nav a,.br-app-nav button{min-width:0;line-height:1.05}
+.br-app-nav strong{font-size:18px;min-height:20px}
+.br-app-status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 12px}
+.br-app-status-grid span{display:flex;align-items:center;min-height:44px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(2,9,19,.52);padding:9px 10px;color:#dbe8fb;font-size:12px;font-weight:850;line-height:1.25}
+.br-app-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.br-app-action,.br-app-price button{min-height:44px;border:0;border-radius:14px;background:var(--br-action-gradient);color:var(--br-action-ink);font-weight:950;padding:0 14px;cursor:pointer;font-family:inherit;box-shadow:var(--br-action-shadow)}
+.br-app-action.is-secondary{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.055));color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:none}
+.br-app-price{display:grid;grid-template-columns:1.2fr .85fr .95fr .85fr auto;gap:8px;margin-bottom:10px}
+.br-app-price input{min-width:0;min-height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:#061222;color:#fff;padding:0 12px;font:inherit}
+.br-app-price input::placeholder{color:#8ea1ba}
+.br-app-price button:disabled,.br-app-action:disabled{opacity:.58;cursor:wait}
+.br-app-alert-item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(105,232,255,.16);background:rgba(105,232,255,.075);border-radius:16px;padding:11px 12px;color:#fff}
+.br-app-alert-item span{display:block;color:#aebdd3;font-size:12px;margin-top:3px}
+.br-app-alert-item button{border:0;background:rgba(255,255,255,.09);color:#fff;border-radius:11px;padding:8px;cursor:pointer}
+@media(max-width:760px){.br-app-status-grid,.br-app-actions,.br-app-price{grid-template-columns:1fr}.br-app-nav{gap:6px}.br-app-nav a,.br-app-nav button{font-size:10px;min-height:50px}.br-app-nav strong{font-size:16px}}
