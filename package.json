@@ -1,6 +1,6 @@
 {
   "name": "billig-reiser-app",
-  "version": "2.2.2",
+  "version": "2.2.5",
   "private": true,
   "type": "module",
   "description": "Billig Reiser PWA and app-store-ready web bundle.",

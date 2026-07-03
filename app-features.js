@@ -1,10 +1,11 @@
 (function () {
-  const APP_VERSION = "v221-app-store-ready";
+  const APP_VERSION = "v225-app-polish";
   const KEY_FAV = "br_app_favorites_v1";
   const KEY_REC = "br_app_recent_v1";
   const KEY_PRICE = "br_app_price_alerts_v1";
   const KEY_PUSH = "br_app_push_subscription_v1";
   const KEY_EMAIL = "br_app_alert_email_v1";
+  const KEY_LAUNCH = "br_app_launch_seen_v1";
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -53,6 +54,105 @@
     node._timer = setTimeout(() => node.classList.remove("is-visible"), 2600);
   }
 
+  function haptic(type = "tap") {
+    const pattern = type === "success" ? [12, 34, 18] : type === "warning" ? [24, 28, 24] : 10;
+    const haptics = window.Capacitor?.Plugins?.Haptics || window.Capacitor?.Plugins?.Haptic;
+    if (haptics?.impact) {
+      haptics.impact({ style: type === "success" ? "medium" : "light" }).catch(() => {});
+      return;
+    }
+    if (haptics?.notification && type === "success") {
+      haptics.notification({ type: "success" }).catch(() => {});
+      return;
+    }
+    if (navigator.vibrate) navigator.vibrate(pattern);
+  }
+
+  function absoluteShareUrl(value = page.url) {
+    try {
+      return new URL(appUrl(value), location.origin).toString();
+    } catch (error) {
+      return location.href;
+    }
+  }
+
+  async function sharePayload(payload = {}) {
+    const data = {
+      title: payload.title || page.title || "Billig Reiser",
+      text: payload.text || "Sjekk dette reisemålet hos Billig-Reiser.no",
+      url: payload.url || location.href
+    };
+    haptic("tap");
+    if (navigator.share) {
+      try {
+        await navigator.share(data);
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") return;
+      }
+    }
+    const textToCopy = `${data.title}\n${data.url}`;
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      toast("Lenke kopiert");
+    } catch (error) {
+      toast("Deling er ikke tilgjengelig her");
+    }
+  }
+
+  function shareFromElement(element) {
+    const title = element.dataset.shareTitle || page.title;
+    const shareUrl = element.dataset.shareUrl || page.url;
+    const shareText = element.dataset.shareText || `Sjekk ${title} hos Billig-Reiser.no`;
+    return sharePayload({ title, text: shareText, url: absoluteShareUrl(shareUrl) });
+  }
+
+  function showLaunchScreen() {
+    const launch = $("[data-br-launch]");
+    if (!launch) return;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    let seen = "";
+    try { seen = sessionStorage.getItem(KEY_LAUNCH); } catch (error) {}
+    if (seen && !isStandalone()) {
+      launch.remove();
+      return;
+    }
+    try { sessionStorage.setItem(KEY_LAUNCH, "1"); } catch (error) {}
+    const duration = reducedMotion ? 180 : 980;
+    window.setTimeout(() => {
+      launch.classList.add("is-done");
+      window.setTimeout(() => launch.remove(), reducedMotion ? 80 : 380);
+    }, duration);
+  }
+
+  function showSearchLoading(message = "Søker etter reiser") {
+    const loader = $("[data-br-loader]");
+    if (!loader) return;
+    const label = loader.querySelector("[data-br-loader-label]");
+    if (label) label.textContent = message;
+    loader.hidden = false;
+    requestAnimationFrame(() => loader.classList.add("is-visible"));
+    clearTimeout(loader._timer);
+    loader._timer = setTimeout(() => hideSearchLoading(), 4200);
+  }
+
+  function hideSearchLoading() {
+    const loader = $("[data-br-loader]");
+    if (!loader) return;
+    loader.classList.remove("is-visible");
+    clearTimeout(loader._timer);
+    loader._timer = setTimeout(() => { loader.hidden = true; }, 220);
+  }
+
+  function animateFavorite(added) {
+    const button = $(".br-app-fab");
+    if (!button || !added) return;
+    button.classList.remove("is-bursting");
+    void button.offsetWidth;
+    button.classList.add("is-bursting");
+    setTimeout(() => button.classList.remove("is-bursting"), 780);
+  }
+
   function upsertRecent() {
     const recent = get(KEY_REC).filter((item) => appUrl(item.url) !== appUrl(page.url));
     recent.unshift(page);
@@ -65,15 +165,18 @@
 
   function toggleFav() {
     let favorites = get(KEY_FAV);
-    if (favorites.some((item) => appUrl(item.url) === appUrl(page.url))) {
+    const wasSaved = favorites.some((item) => appUrl(item.url) === appUrl(page.url));
+    if (wasSaved) {
       favorites = favorites.filter((item) => appUrl(item.url) !== appUrl(page.url));
       toast("Fjernet fra lagrede reiser");
     } else {
       favorites.unshift(page);
-      toast("Lagret i appen");
+      toast("Lagt til i favoritter");
     }
     set(KEY_FAV, favorites.slice(0, 50));
     updateFavButton();
+    animateFavorite(!wasSaved);
+    haptic(wasSaved ? "tap" : "success");
     renderDrawer();
   }
 
@@ -82,8 +185,9 @@
     if (!button) return;
     const saved = isSaved();
     button.classList.toggle("is-saved", saved);
-    button.textContent = saved ? "Lagret" : "Lagre";
+    button.textContent = saved ? "Lagret" : "Legg til";
     button.setAttribute("aria-pressed", saved ? "true" : "false");
+    button.setAttribute("aria-label", saved ? "Fjern fra favoritter" : "Legg til i favoritter");
   }
 
   function itemHtml(item, removable) {
@@ -366,7 +470,19 @@
 
   function appShell() {
     return `
-      <button class="br-app-fab" type="button" data-br-fav aria-pressed="false">Lagre</button>
+      <div class="br-launch-screen" data-br-launch aria-hidden="true">
+        <div class="br-launch-mark">
+          <img src="/assets/billig-reiser-logo-full-v116.png" alt="">
+        </div>
+      </div>
+      <div class="br-search-loader" data-br-loader hidden aria-live="polite" aria-label="Søk pågår">
+        <div class="br-search-loader-card">
+          <img src="/assets/app-icon-192.png" alt="">
+          <strong data-br-loader-label>Søker etter reiser</strong>
+          <span></span>
+        </div>
+      </div>
+      <button class="br-app-fab" type="button" data-br-fav aria-pressed="false" aria-label="Legg til i favoritter">Legg til</button>
       <nav class="br-app-nav" aria-label="Appmeny">
         <a href="/"><strong>⌂</strong>Hjem</a>
         <button type="button" data-br-search><strong>⌕</strong>Søk</button>
@@ -392,6 +508,7 @@
               <span id="brPushState">Push-varsler ikke aktivert</span>
             </div>
             <div class="br-app-actions">
+              <button class="br-app-action is-secondary" type="button" data-br-share data-share-title="${escapeHtml(page.title)}" data-share-url="${escapeHtml(page.url)}">Del siden</button>
               <button class="br-app-action" type="button" data-br-install>Installer appen</button>
               <button class="br-app-action is-secondary" type="button" data-br-push>Aktiver push</button>
               <button class="br-app-action is-secondary" type="button" data-br-test-notification>Test varsel</button>
@@ -442,9 +559,19 @@
   }
 
   function bindEvents() {
+    document.addEventListener("pointerdown", (event) => {
+      const pendingSearch = event.target.closest("#searchSubmitButton,.search-launch,#flightCta,#hotelCta,#activityCta,#packageCta,.hack-card-actions a,.route-hack-card a");
+      if (!pendingSearch || pendingSearch.closest("[data-br-share]")) return;
+      const label = pendingSearch.textContent?.toLowerCase().includes("hotell") ? "Åpner hotellforslag" : "Sjekker flypris";
+      showSearchLoading(label);
+    }, { passive: true });
+
     document.addEventListener("click", (event) => {
       const removeFav = event.target.closest("[data-remove-fav]");
       const removeAlert = event.target.closest("[data-remove-price-alert]");
+      const share = event.target.closest("[data-br-share]");
+      const interactive = event.target.closest("button,a,input,select,[role='button'],[data-route-card]");
+      if (interactive) haptic(interactive.closest("[data-br-fav]") ? "success" : "tap");
       if (removeFav) {
         event.preventDefault();
         set(KEY_FAV, get(KEY_FAV).filter((item) => appUrl(item.url) !== appUrl(removeFav.dataset.removeFav)));
@@ -460,6 +587,15 @@
         toast("Prisvarsel fjernet");
         return;
       }
+      if (share) {
+        event.preventDefault();
+        shareFromElement(share);
+        return;
+      }
+      const outbound = event.target.closest("a[target='_blank']");
+      if (outbound && outbound.href && !outbound.closest("[data-br-share]")) {
+        showSearchLoading(outbound.textContent?.toLowerCase().includes("hotell") ? "Åpner hotellforslag" : "Sjekker flypris");
+      }
       if (event.target.closest("[data-br-fav]")) toggleFav();
       if (event.target.closest("[data-br-open]")) openDrawer();
       if (event.target.closest("[data-br-alerts]")) openDrawer("brAppAlerts");
@@ -473,6 +609,9 @@
     });
 
     document.addEventListener("submit", (event) => {
+      if (event.target.closest("#travelSearch")) {
+        showSearchLoading("Søker etter reiser");
+      }
       const form = event.target.closest("[data-br-price-form]");
       if (!form) return;
       event.preventDefault();
@@ -490,6 +629,7 @@
     upsertRecent();
     document.body.insertAdjacentHTML("beforeend", appShell());
     bindEvents();
+    showLaunchScreen();
     updateFavButton();
     renderDrawer();
     prefillPriceAlert();

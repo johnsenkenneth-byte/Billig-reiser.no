@@ -14,12 +14,12 @@
   <meta property="og:description" content="Velg avreise, reisestil, måned og budsjett. Få konkrete reisehacks og partnerlenker videre." />
   <meta property="og:image" content="https://billig-reiser.no/assets/front-hero-flight-map.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href="style.css?v=159" rel="stylesheet" />
+  <link href="style.css?v=225" rel="stylesheet" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="theme-color" content="#020913" />
-  <script defer src="/pwa-register.js?v=221"></script>
-  <link rel="stylesheet" href="/app-features.css?v=221" />
-  <script defer src="/app-features.js?v=221"></script>
+  <script defer src="/pwa-register.js?v=225"></script>
+  <link rel="stylesheet" href="/app-features.css?v=225" />
+  <script defer src="/app-features.js?v=225"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Reisehacks","description":"Interaktiv reisehack-motor for billigere fly, hotell, pakkereiser, opplevelser og praktiske reisevalg.","url":"https://billig-reiser.no/reisehacks.html","isPartOf":{"@type":"WebSite","name":"Billig-Reiser.no","url":"https://billig-reiser.no/"}}</script>
   <style>
     :root {
@@ -336,6 +336,19 @@
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(18,38,63,.94), rgba(7,17,32,.96));
       box-shadow: 0 16px 36px rgba(0,0,0,.22);
+      cursor: pointer;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+
+    .hack-card:hover,
+    .hack-card:focus-within,
+    .hack-card.is-selected {
+      border-color: rgba(33,215,255,.56);
+      box-shadow: 0 18px 44px rgba(0,0,0,.28), 0 0 0 1px rgba(33,215,255,.22);
+    }
+
+    .hack-card.is-selected {
+      transform: translateY(-2px);
     }
 
     .hack-card img {
@@ -377,6 +390,46 @@
       margin-top: 10px;
       color: #fff;
       font-size: 14px;
+    }
+
+    .hack-card-actions {
+      display: grid;
+      grid-template-columns: minmax(0, .75fr) minmax(0, 1fr) minmax(0, .75fr);
+      gap: 8px;
+      margin-top: 12px;
+      padding: 0;
+    }
+
+    .hack-card-actions button,
+    .hack-card-actions a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .hack-card-actions button {
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: #eef6ff;
+      cursor: pointer;
+    }
+
+    .hack-card.is-selected .hack-card-actions button {
+      border-color: rgba(33,215,255,.46);
+      background: rgba(33,215,255,.14);
+      color: #91f5ff;
+    }
+
+    .hack-card-actions a {
+      border: 1px solid transparent;
+      background: var(--hack-action);
+      color: var(--hack-action-ink);
     }
 
     .hack-actions {
@@ -790,16 +843,20 @@
         { id:"dubai", name:"Dubai", code:"DXB", country:"De forente arabiske emirater", style:["sun","family","longhaul"], base:7600, nights:{sun:6,family:6,longhaul:7}, image:"assets/destinations/dubai-skyline-reiseradar.jpg", activity:"Dubai attractions", hotel:"Dubai", why:"Solgaranti og mange hotellkampanjer uten lang reisetid.", hack:"Unngå de dyreste eventhelgene og sjekk hotell nær metro." }
       ];
 
+      const routeIds = new Set(routes.map((route) => route.id));
+
       const state = {
         origin: "OSL",
         month: "2026-09",
         budget: 8000,
         travelers: 2,
-        style: "weekend"
+        style: "weekend",
+        selectedRoute: routeIds.has(location.hash.replace("#", "")) ? location.hash.replace("#", "") : ""
       };
 
       const form = document.getElementById("hackForm");
       const budgetOutput = document.getElementById("budgetOutput");
+      const hackCards = document.getElementById("hackCards");
       const routeGrid = document.getElementById("routeHackGrid");
 
       function addDays(date, days) {
@@ -899,20 +956,26 @@
         return `${Math.round(value / 100) * 100} kr`;
       }
 
-      function renderCards(list) {
+      function renderCards(list, selectedRouteId) {
         const cards = list.slice(0, 3).map((route) => {
           const dates = datesFor(route);
-          return `<article class="hack-card">
+          const selected = route.id === selectedRouteId;
+          return `<article class="hack-card${selected ? " is-selected" : ""}" data-route-card="${route.id}">
             <img src="${route.image}" alt="${route.name}" loading="lazy" decoding="async" />
             <div>
               <small>${route.country} · ${dates.nights} netter</small>
               <h4>${route.name}</h4>
               <p>${route.why}</p>
               <strong>Prisindikator: ${formatPrice(route.price)}</strong>
+              <span class="hack-card-actions">
+                <button type="button" data-route-choice="${route.id}" aria-pressed="${selected ? "true" : "false"}">${selected ? "Valgt" : "Velg"}</button>
+                <a href="${flightUrl(route)}" target="_blank" rel="nofollow sponsored noopener">Sjekk flypris</a>
+                <button type="button" data-br-share data-share-title="${route.name} hos Billig-Reiser.no" data-share-text="Sjekk ${route.name} som reisemål hos Billig-Reiser.no" data-share-url="/reisehacks.html#${route.id}">Del</button>
+              </span>
             </div>
           </article>`;
         }).join("");
-        document.getElementById("hackCards").innerHTML = cards;
+        hackCards.innerHTML = cards;
       }
 
       function renderHackList(best) {
@@ -942,7 +1005,8 @@
       function render() {
         budgetOutput.value = `${state.budget} kr`;
         const ranked = rankedRoutes();
-        const best = ranked[0];
+        const best = ranked.find((route) => route.id === state.selectedRoute) || ranked[0];
+        state.selectedRoute = best.id;
         const dates = datesFor(best);
         document.getElementById("hackLivePill").textContent = `Matcher ${ranked.filter((route) => route.style.includes(state.style)).length} ruter`;
         document.getElementById("resultTitle").textContent = `${best.name} ${state.style === "weekend" ? "weekend" : "reise"}`;
@@ -957,7 +1021,7 @@
         document.getElementById("esimCta").href = affiliates.saily || "#";
         document.getElementById("luggageCta").href = affiliates.radicalStorage || "#";
         document.getElementById("delayCta").href = affiliates.flightDelay || "#";
-        renderCards(ranked);
+        renderCards(ranked, best.id);
         renderHackList(best);
         renderRouteGrid();
       }
@@ -974,9 +1038,21 @@
       document.querySelectorAll("[data-style]").forEach((button) => {
         button.addEventListener("click", () => {
           state.style = button.dataset.style;
+          state.selectedRoute = "";
           document.querySelectorAll("[data-style]").forEach((item) => item.classList.toggle("is-active", item === button));
           render();
         });
+      });
+
+      hackCards.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
+        const choice = event.target.closest("[data-route-choice]");
+        const card = event.target.closest("[data-route-card]");
+        const routeId = choice?.dataset.routeChoice || card?.dataset.routeCard || "";
+        if (!routeId) return;
+        state.selectedRoute = routeId;
+        history.replaceState(null, "", `#${routeId}`);
+        render();
       });
 
       render();

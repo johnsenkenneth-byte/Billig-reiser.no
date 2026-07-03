@@ -9055,6 +9055,19 @@ body{
     object-fit:contain!important;
     padding:clamp(16px,5vw,28px)!important;
   }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-card.is-partner-image.is-campanyon{
+    flex:0 0 min(88vw,360px)!important;
+    aspect-ratio:230 / 146!important;
+    background:#f7f7f5!important;
+  }
+
+  html body .hotel-topper.is-partner-strip .hotel-topper-card.is-partner-image.is-campanyon img{
+    object-fit:contain!important;
+    object-position:center!important;
+    padding:0!important;
+    background:#f7f7f5!important;
+  }
 }
 
 /* BR v218: desktop/tablet hero should feel like the live deal collage mockup */
